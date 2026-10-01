@@ -6,6 +6,7 @@ import { UserModule } from './users/user.module.js';
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(AppModule, { snapshot: true }); //a partir da factory o grafo de dependecias dentro do conteiner da inversao de controle
   const userService = app.select(UserModule).get(UserService, { strict: true }); //se tiver UserService especificamente nesse modulo, vai debugar (strict: false procura no resto caso nao ache)
+  console.log(userService) //sem injectable em UserService: -> UserService {userRepository: undefined}
   userService.findAll();
 }
 bootstrap().then();
