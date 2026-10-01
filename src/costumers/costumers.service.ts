@@ -1,9 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateCostumerDto } from './dto/create-costumer.dto.js';
 import { UpdateCostumerDto } from './dto/update-costumer.dto.js';
 
+import { MockRepository } from '../common/database/database.module.js'
+
 @Injectable()
 export class CostumersService {
+  constructor(
+    @Inject('COSTUMER_REPOSITORY') 
+    private readonly costumerRepository: MockRepository) {
+      console.info(costumerRepository)
+    }
+
   create(createCostumerDto: CreateCostumerDto) {
     return 'This action adds a new costumer';
   }
