@@ -10,3 +10,5 @@ async function bootstrap() {
   userService.findAll();
 }
 bootstrap().then();
+
+//nest --help --> nest g <tag> <name>
