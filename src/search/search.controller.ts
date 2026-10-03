@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors } from '@nestjs/common';
 import { SearchService } from './search.service.js';
 import { CreateSearchDto } from './dto/create-search.dto.js';
 import { UpdateSearchDto } from './dto/update-search.dto.js';
+import { CacheInterceptor } from '../common/cache/cache.interceptor.js';
 
 @Controller('search')
+@UseInterceptors(CacheInterceptor)
 export class SearchController {
   constructor(private readonly searchService: SearchService) {}
 

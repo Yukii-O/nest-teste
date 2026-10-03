@@ -1,11 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, HttpStatus, UseInterceptors } from '@nestjs/common';
 import { PaymentsService } from './payments.service.js';
 import { CreatePaymentDto } from './dto/create-payment.dto.js';
 import { UpdatePaymentDto } from './dto/update-payment.dto.js';
 import { ValidationPipe } from './validations/validation.pipe.js';
 import { createPaymentSchema } from './validations/create-payment.schema.js';
-
+import { CacheInterceptor } from '../common/cache/cache.interceptor.js';
+////////////tbm botei em payments, pra testar com end point real
 @Controller('payments')
+@UseInterceptors(CacheInterceptor)
 export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) {}
 //nota --> com npm i @anatine/zod-nestjs pra helper de zod com classes, muda o export type LoginDto = z.infer<typeof loginSchema>; do meu finder recipe para export class LoginDto extends createZodDto(loginSchema) {} e alterar a pipe para ler a metadata e avaliar la, pode criar uma pipe global, que nao precisa ser escrita em cada @Body(), apenas com um app.useGlobalPipes(new ZodValidationPipe());  no controller todo
